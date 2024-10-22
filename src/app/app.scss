@@ -1,0 +1,40 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+
+  .description {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 1.5rem;
+
+    .homepageHeading {
+      color: black;
+      margin-bottom: 1rem;
+    }
+
+    .descriptionText {
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: #555;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 1.5rem auto;
+    }
+
+    .buttonWrapper {
+      margin-top: 20px;
+
+      .journalButton {
+        background-color: #007bff;
+        color: white;
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+}
