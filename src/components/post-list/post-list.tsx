@@ -1,4 +1,9 @@
 import { Post } from "@/app/journal/types";
+import {
+  Box, Button, Card, CardActions, CardContent, List, ListItem, Typography
+} from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
+import './post-list.scss';
 
 interface PostListProps {
   posts: Post[];
@@ -6,15 +11,33 @@ interface PostListProps {
 
 const PostList = ({ posts }: PostListProps) => {
   return (
-    <ul>
-      {posts.map((post: Post) => (
-        <li key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <small>By: {post.author?.name || "Unknown"}</small>
-        </li>
-      ))}
-    </ul>
+    <Box className="post-list-container">
+      <List className="post-list">
+        {posts.map((post: Post) => (
+          <ListItem key={post.id} className="post-item">
+            <Card variant="outlined" className="post-card">
+              <CardContent>
+                <Box display="flex" alignItems="center">
+                  <PersonIcon className="author-icon" />
+                  <Typography variant="subtitle1" className="post-author">
+                    {post.author?.name}
+                  </Typography>
+                </Box>
+                <Typography variant="h6" component="div" className="post-title">
+                  {post.title}
+                </Typography>
+                <Typography variant="body2" className="post-content">
+                  {post.content}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Read More</Button>
+              </CardActions>
+            </Card>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 };
 
