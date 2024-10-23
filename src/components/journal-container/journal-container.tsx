@@ -38,10 +38,8 @@ const JournalContainer: React.FC<JournalContainerProps> = ({ initialPosts }: Jou
     setLoading(true); // Set loading state to true while the API call is in progress.
     
     try {
-      const { posts } = await postJournalEntry(journalFormState);
-      
-      // Update the posts state with the new posts.
-      setPosts((prevPosts: Post[]) => [...prevPosts, ...posts]);
+      const { posts: newPosts } = await postJournalEntry(journalFormState);
+      setPosts(newPosts);
     } catch (error) {
       console.error("Failed to submit journal entry:", error);
       enqueueSnackbar('Failed to submit journal entry. Please try again.', { variant: 'error' });
@@ -65,6 +63,8 @@ const JournalContainer: React.FC<JournalContainerProps> = ({ initialPosts }: Jou
       ...newState,
     }));
   };
+  
+  console.log(posts)
   
   return (
     <Box className="journal-container" sx={{ p: 3 }}>
