@@ -1,7 +1,5 @@
 # Thinkific Multi-User Journal Assignment
 
-## Getting Started
-
 ### 1. Get to know project tech stack
 
 This simple project is a starting point for your take-home test. It is built with the following technologies:
