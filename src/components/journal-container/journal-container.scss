@@ -2,11 +2,43 @@
   font-family: system-ui, sans-serif;
   line-height: 1.8;
   padding: 1rem;
-}
 
-.journal-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  margin-top: 1.5rem;
+  .journal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 1.5rem;
+  }
+
+  .my-select {
+    &__control {
+      max-width: 20rem;
+      margin-left: 1rem;
+      background-color: white;
+      border: 1px solid #bebebe;
+      color: black; // Change font color
+
+      &:hover {
+        border-color: #707070; // Change border color on hover.
+      }
+    }
+
+    &__menu { // Add this block for the dropdown menu
+      width: 22rem; // Allow the width to adjust based on content
+    }
+
+    &__option {
+      color: black; // Change font color of options
+      background-color: white; // Change background color of options
+
+      &:hover {
+        background-color: #1976d2; // Change background color on hover.
+        color: white; // Change font color on hover.
+      }
+    }
+
+    &__single-value {
+      color: black; // Change font color of the selected value.
+    }
+  }
 }

@@ -1,6 +1,10 @@
 import { ChangeEvent } from "react";
 import { Box, Button, TextField } from "@mui/material";
-import { HandleSubmitCB, JournalFormState, UpdateJournalFormStateCB } from "@/components/journal-container/types";
+import {
+  HandleSubmitCB,
+  JournalFormState,
+  UpdateJournalFormStateCB
+} from "@/components/journal-container/types";
 
 interface JournalFormProps {
   journalFormState: JournalFormState;
@@ -9,7 +13,9 @@ interface JournalFormProps {
 }
 
 const JournalForm = ({
-  journalFormState, updateJournalFormState, handleSubmit
+  journalFormState,
+  updateJournalFormState,
+  handleSubmit
 }: JournalFormProps) => {
   // Destructure what I want from journalFormState.
   const { postText }: JournalFormState = journalFormState;

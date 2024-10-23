@@ -10,7 +10,9 @@ interface PostListProps {
   posts: Post[];
 }
 
-const PostList = ({ posts }: PostListProps) => {
+const PostList = ({
+  posts
+}: PostListProps) => {
   return (
     <Box className="post-list-container">
       <List className="post-list">

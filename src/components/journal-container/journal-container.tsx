@@ -2,70 +2,99 @@
 
 import React, { useEffect, useState } from "react";
 import { Post } from "@/app/journal/types";
-import PostList from "@/components/post-list/post-list";
+import Select from "react-select";
 import { Box, CircularProgress } from "@mui/material";
 import JournalForm from "@/components/journal-form/journal-form";
-import { HandleSubmitCB, JournalFormState, UpdateJournalFormStateCB } from "@/components/journal-container/types";
-import { postJournalEntry } from "@/components/journal-container/helpers";
-import { SnackbarProvider, enqueueSnackbar } from 'notistack';
-import './journal-container.scss';
+import {
+  HandleSubmitCB,
+  JournalFormState,
+  UpdateJournalFormStateCB,
+  UserSelectOption,
+} from "@/components/journal-container/types";
+import {
+  createPostsFilteredByUser,
+  getUserSelectOptionsFromPosts,
+  postJournalEntry,
+} from "@/components/journal-container/helpers";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import PostList from "@/components/post-list/post-list";
+import "./journal-container.scss";
 
 interface JournalContainerProps {
   initialPosts: Post[];
 }
 
-const JournalContainer: React.FC<JournalContainerProps> = ({ initialPosts }: JournalContainerProps) => {
-  // Client-side state to manage loading state.
+const JournalContainer: React.FC<JournalContainerProps> = ({
+  initialPosts,
+}: JournalContainerProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  
-  // Client-side state to hold the posts, initialized with the fetched posts.
   const [posts, setPosts] = useState<Post[]>(initialPosts);
-  
-  // Client-side state to keep track of the form input.
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+
+  // https://react-select.com/home
+  const [selectedOption, setSelectedOption] = useState<UserSelectOption | null>(
+    null,
+  );
+  const [userDropDownOptions, setUserDropDownOptions] = useState<
+    UserSelectOption[]
+  >([]);
+
   const [journalFormState, setJournalFormState] = useState<JournalFormState>({
     postText: "",
-    user: "Anonymous" // Default user.
+    user: "Anonymous",
   });
-  
-  // Effect hook to synchronize the client-side state with the initial posts fetched server-side.
+
+  // Effect to populate the dropdown menu data react-select needs to make every user selectable
   useEffect(() => {
     setPosts(initialPosts);
+    const userDropDownOptions: UserSelectOption[] =
+      getUserSelectOptionsFromPosts(initialPosts);
+    setUserDropDownOptions(userDropDownOptions || []);
   }, [initialPosts]);
-  
-  // Handle form submission for the journal entry.
+
+  // Effect hook to handle updating the UI once the user selects a user to filter the posts by.
+  useEffect(() => {
+    const filteredPosts: Post[] | null = createPostsFilteredByUser(
+      posts,
+      selectedOption,
+    );
+    setFilteredPosts(filteredPosts || []);
+  }, [posts, selectedOption]);
+
   const handleSubmit: HandleSubmitCB = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Set loading state to true while the API call is in progress.
-    
+    setLoading(true);
+
     try {
       const { posts: newPosts } = await postJournalEntry(journalFormState);
       setPosts(newPosts);
     } catch (error) {
       console.error("Failed to submit journal entry:", error);
-      enqueueSnackbar('Failed to submit journal entry. Please try again.', { variant: 'error' });
+      enqueueSnackbar("Failed to submit journal entry. Please try again.", {
+        variant: "error",
+      });
     } finally {
-      enqueueSnackbar('Journal entry submitted successfully!', { variant: 'success' });
+      enqueueSnackbar("Journal entry submitted successfully!", {
+        variant: "success",
+      });
       setJournalFormState((prevState: JournalFormState) => ({
         ...prevState,
-        postText: "", // Clear the entry after submission.
+        postText: "",
       }));
     }
-    
+
     setLoading(false);
   };
-  
-  // Callback function to update the journal form state.
+
   const updateJournalFormState: UpdateJournalFormStateCB = (
-    newState: Partial<JournalFormState>
+    newState: Partial<JournalFormState>,
   ) => {
     setJournalFormState((prevState: JournalFormState) => ({
       ...prevState,
       ...newState,
     }));
   };
-  
-  console.log(posts)
-  
+
   return (
     <Box className="journal-container" sx={{ p: 3 }}>
       <SnackbarProvider />
@@ -73,14 +102,30 @@ const JournalContainer: React.FC<JournalContainerProps> = ({ initialPosts }: Jou
         {...{
           journalFormState,
           updateJournalFormState,
-          handleSubmit
+          handleSubmit,
         }}
       />
       <h2 className="journal-title">Journal Entries</h2>
       {loading ? (
         <CircularProgress />
       ) : (
-        <PostList {...{ posts }} />
+        <div>
+          {userDropDownOptions.length > 0 ? (
+            <Select
+              options={userDropDownOptions}
+              onChange={setSelectedOption}
+              classNamePrefix="my-select"
+              placeholder="Filter posts by a user"
+            />
+          ) : (
+            <p>No users available</p>
+          )}
+          <PostList
+            {...{
+              posts: filteredPosts.length > 0 ? filteredPosts : posts,
+            }}
+          />
+        </div>
       )}
     </Box>
   );

@@ -1,56 +1,6 @@
 import { Post } from "@/app/journal/types";
 import { sortPostsByDate } from "@/app/journal/helpers";
-
-const dummyPosts: Post[] = [
-  {
-    id: 1,
-    title: "First Post",
-    content: "Hello, World!",
-    datePosted: new Date("2024-10-23T00:37:27.956Z"),
-    authorId: 1,
-    user: {
-      email: "jane@example.com",
-      id: 1,
-      name: "Jane",
-    },
-  },
-  {
-    id: 2,
-    title: "Second Post",
-    content: "Hello, Journal!",
-    datePosted: new Date("2024-10-23T00:37:27.956Z"),
-    authorId: 2,
-    user: {
-      email: "joe@example.com",
-      id: 2,
-      name: "Joe",
-    },
-  },
-  {
-    id: 3,
-    title: "Anonymous Post",
-    content: "This is a post from an anonymous user :).",
-    datePosted: new Date("2024-10-23T01:38:34.583Z"),
-    authorId: 0,
-    user: {
-      email: "anonymous@example.com",
-      id: 0,
-      name: "Anonymous",
-    },
-  },
-  {
-    id: 13,
-    title: "Anonymous Post",
-    content: "Hello there my guy.",
-    datePosted: new Date("2024-10-23T02:11:09.496Z"),
-    authorId: 0,
-    user: {
-      email: "anonymous@example.com",
-      id: 0,
-      name: "Anonymous",
-    },
-  },
-];
+import { dummyPosts } from "../../../util/util-data";
 
 describe("sortPostsByDate", (): void => {
   it("should return posts sorted by date in descending order", (): void => {
@@ -70,7 +20,7 @@ describe("sortPostsByDate", (): void => {
         title: "First Post",
         content: "Hello, World!",
         datePosted: new Date("2024-10-23T00:37:27.956Z"),
-        authorId: 1,
+        userId: 1,
         user: {
           email: "jane@example.com",
           id: 1,
@@ -82,7 +32,7 @@ describe("sortPostsByDate", (): void => {
         title: "Second Post",
         content: "Hello, Journal!",
         datePosted: new Date("2024-10-23T00:37:27.956Z"),
-        authorId: 2,
+        userId: 2,
         user: {
           email: "joe@example.com",
           id: 2,
@@ -105,7 +55,7 @@ describe("sortPostsByDate", (): void => {
         title: "Post with null date",
         content: "This post has a null date.",
         datePosted: null, // Null datePosted.
-        authorId: 1,
+        userId: 1,
         user: {
           email: "jane@example.com",
           id: 1,
@@ -117,7 +67,7 @@ describe("sortPostsByDate", (): void => {
         title: "Valid Post",
         content: "This post has a valid date.",
         datePosted: new Date("2024-10-23T02:11:09.496Z"),
-        authorId: 1,
+        userId: 1,
         user: {
           email: "jane@example.com",
           id: 1,
