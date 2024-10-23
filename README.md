@@ -1,5 +1,8 @@
 # Thinkific Multi-User Journal Assignment
 
+### Video Demo of application:
+https://github.com/user-attachments/assets/1122551b-7eaa-45ef-97bd-57f432ee192a
+
 ## Getting Started
 
 ### 1. Get to know project tech stack
