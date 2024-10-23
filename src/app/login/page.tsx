@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link } from '@mui/material';
 import "./login.scss";
 
 const Page = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const router = useRouter();
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,16 +24,17 @@ const Page = () => {
       
       // Store the JWT in sessionStorage instead.
       sessionStorage.setItem('token', data.token);
-      
-      // Redirect the user after successful login
-      router.push('/journal');
     } else {
       console.error('Login failed');
     }
   };
   
+  const handleRegisterRedirect = () => {
+    router.push('/registration');
+  };
+  
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="login-container">
       <Box className="box">
         <Typography component="h1" variant="h5" className="title">
           Sign In
@@ -70,6 +71,14 @@ const Page = () => {
             Login
           </Button>
         </form>
+        <Box mt={2}>
+          <Typography variant="body2" className="no-account-typography">
+            Do not have an account?{' '}
+            <Link component="button" variant="body2" className="link-to-register" onClick={handleRegisterRedirect}>
+              Register!
+            </Link>
+          </Typography>
+        </Box>
       </Box>
     </Container>
   );

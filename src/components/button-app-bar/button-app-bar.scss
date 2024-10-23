@@ -1,0 +1,13 @@
+// ButtonAppBar.module.scss
+.toolbar {
+  display: flex;
+  justify-content: space-between; // Distribute space between items
+  align-items: center; // Center items vertically
+  padding: 0 16px; // Add padding to the sides
+}
+
+.welcome-message {
+  margin-right: 1rem; // Add space to the right of the message
+  font-weight: bold; // Make the message bold
+  color: white; // Change text color if necessary
+}

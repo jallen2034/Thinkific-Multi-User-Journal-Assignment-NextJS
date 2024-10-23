@@ -4,6 +4,7 @@ import { fetchPosts, makeNewPostToDbForAnonUser, makeNewPostToDbForEmailUser } f
 import { sortPostsByDate } from "@/app/journal/helpers";
 import { Post } from "@/app/journal/types";
 
+// Helper function to create a post and fetch updated posts
 const createPostAndFetchUpdatedPosts = async (postText: string, userId?: number) => {
   if (userId) {
     await makeNewPostToDbForEmailUser(postText, userId);
