@@ -17,7 +17,6 @@ export const fetchPosts = async () => {
   }
 };
 
-
 // Helper function to find an existing post in the database.
 export const findPost = async (id: string) => {
   try {
@@ -46,5 +45,63 @@ export const makeNewPostToDbForAnonUser = async (content: string) => {
   } catch (error) {
     console.error("Error creating new post for anonymous user:", error);
     throw new Error("Could not create a new post");
+  }
+};
+
+export const makeNewPostToDbForEmailUser = async (content: string, userId: number) => {
+  try {
+    const newPost = await prisma.post.create({
+      data: {
+        title: "User Post",  // Can modify the title as needed
+        content: content,
+        datePosted: new Date(),
+        userId: userId,  // Use the provided userId for the authenticated user
+      },
+    });
+    console.log("New post created for user:", newPost);
+  } catch (error) {
+    console.error("Error creating new post for authenticated user:", error);
+    throw new Error("Could not create a new post");
+  }
+};
+
+export const findUserByEmail = async (email: string) => {
+  try {
+    return await prisma.user.findUnique({
+      where: { email },
+    });
+  } catch (error) {
+    console.error(`Error finding user with email ${email}:`, error);
+    throw new Error("Could not find user");
+  }
+};
+
+// Helper function to fetch all users from the database.
+export const fetchUsers = async () => {
+  try {
+    console.log("Fetching all users from the database...");
+    return await prisma.user.findMany();
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw new Error("Could not fetch users");
+  }
+};
+
+export const createUser = async (
+  name: string,
+  email: string,
+  passwordHash: string,
+) => {
+  try {
+    return await prisma.user.create({
+      data: {
+        name,
+        email,
+        passwordHash,
+      },
+    });
+  } catch (error) {
+    console.error("Error creating new user:", error);
+    throw new Error("Could not create user");
   }
 };

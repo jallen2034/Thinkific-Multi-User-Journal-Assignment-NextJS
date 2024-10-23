@@ -8,18 +8,22 @@ import { Author, Post } from "@/app/journal/types";
 // Helper to make a fetch request to my Next.js server and update the DB with a new post.
 const postJournalEntry = async (data: JournalFormState) => {
   try {
+    // Retrieve the JWT from sessionStorage.
+    const jwtToken = sessionStorage.getItem('token');
+    
     const response: any = await fetch("/api/addJournalEntry", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }), // Add token if it exists.
       },
       body: JSON.stringify(data),
     });
-
+    
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
-
+    
     return await response.json();
   } catch (error) {
     console.error("Error posting journal entry:", error);

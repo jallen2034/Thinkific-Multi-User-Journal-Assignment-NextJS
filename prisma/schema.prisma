@@ -13,10 +13,11 @@ datasource db {
 }
 
 model User {
-  email String  @unique
-  id    Int     @id @default(autoincrement())
-  name  String?
-  posts Post[]
+  email        String  @unique
+  id           Int     @id @default(autoincrement())
+  name         String?
+  posts        Post[]
+  passwordHash String?
 }
 
 model Post {

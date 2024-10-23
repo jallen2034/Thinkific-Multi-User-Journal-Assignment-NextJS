@@ -32,7 +32,9 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
 
   // https://react-select.com/home
-  const [selectedOption, setSelectedOption] = useState<UserSelectOption | null>(null,);
+  const [selectedOption, setSelectedOption] = useState<UserSelectOption | null>(
+    null,
+  );
   const [userDropDownOptions, setUserDropDownOptions] = useState<
     UserSelectOption[]
   >([]);
@@ -49,7 +51,7 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
       getUserSelectOptionsFromPosts(initialPosts);
     setUserDropDownOptions(userDropDownOptions || []);
   }, [initialPosts]);
-  
+
   const handleSubmit: HandleSubmitCB = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -83,17 +85,20 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
       ...newState,
     }));
   };
-  
+
   // Function to clear the dropdown menu filters.
   const clearDropdownFilters = () => {
     setFilteredPosts([]); // Reset filtered posts.
     setSelectedOption(null); // Reset selected option.
   };
-  
+
   // Function to handle changes in the selected option.
   const handleSelectChange = (option: UserSelectOption | null) => {
     setSelectedOption(option);
-    const filteredPosts: Post[] | null = createPostsFilteredByUser(posts, option);
+    const filteredPosts: Post[] | null = createPostsFilteredByUser(
+      posts,
+      option,
+    );
     setFilteredPosts(filteredPosts || []);
   };
   

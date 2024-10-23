@@ -1,8 +1,13 @@
 import React from 'react';
+import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
 import { fetchPosts } from "../../../prisma/helpers/post";
 import { Post } from "@/app/journal/types";
-import JournalContainer from "@/components/journal-container/journal-container";
 import { sortPostsByDate } from "@/app/journal/helpers";
+
+// Dynamically import JournalContainer with SSR disabled.
+const JournalContainer = dynamic(() => import("@/components/journal-container/journal-container"), {
+  ssr: false, // Disable SSR for this component.
+});
 
 /* This component fetches posts from the database using Prisma on the server side
  * before rendering the JournalContainer component on the client side. */
