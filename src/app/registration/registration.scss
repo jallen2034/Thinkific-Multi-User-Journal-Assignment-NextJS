@@ -1,3 +1,10 @@
+.container {
+  height: 55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .box {
   display: flex;
   flex-direction: column;
@@ -9,8 +16,7 @@
 }
 
 .title {
-  margin-bottom: 1.5rem;
-  font-weight: bold;
+  margin-bottom: 0.5rem;
   color: #3f51b5; // Change to your desired title color
 }
 
@@ -19,5 +25,15 @@
 }
 
 .submit {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+}
+
+.already-Have-account-typography {
+  display: flex;
+  align-items: center; /* Center vertically */
+  color: black;
+
+  .link-to-login {
+    margin-left: 0.25rem;
+  }
 }

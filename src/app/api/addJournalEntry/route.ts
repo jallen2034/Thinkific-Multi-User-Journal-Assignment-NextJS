@@ -1,27 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken"; // Ensure you import jwt
+import jwt from "jsonwebtoken";
 import { JournalFormState } from "@/components/journal-container/types";
 import {
-  fetchPosts,
-  findUserByEmail,
-  makeNewPostToDbForAnonUser,
-  makeNewPostToDbForEmailUser,
+  findUserByEmail
 } from "../../../../prisma/helpers/post";
-import { Post } from "@/app/journal/types";
-import { sortPostsByDate } from "@/app/journal/helpers";
+import { createPostAndFetchUpdatedPosts } from "@/app/api/addJournalEntry/helpers";
 
 const JWT_SECRET = process.env.JWT_SECRET! || "your_jwt_secret";
-
-// Helper function to create a post and fetch updated posts
-const createPostAndFetchUpdatedPosts = async (postText: string, userId?: number) => {
-  if (userId) {
-    await makeNewPostToDbForEmailUser(postText, userId);
-  } else {
-    await makeNewPostToDbForAnonUser(postText);
-  }
-  const updatedPosts: Post[] = await fetchPosts(); // Fetch updated posts after creation
-  return sortPostsByDate(updatedPosts);
-};
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,7 +18,7 @@ export async function POST(request: NextRequest) {
     
     if (token) {
       const decoded: any = jwt.verify(token, JWT_SECRET);
-      userEmail = decoded.email; // Get the email from the decoded token
+      userEmail = decoded.email; // Get the email from the decoded token.
     }
     
     const body: JournalFormState = await request.json();

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link } from '@mui/material';
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import "./registration.scss";
 
@@ -25,7 +25,6 @@ const RegistrationPage = () => {
       enqueueSnackbar("Registered this user now go login!", {
         variant: "success",
       });
-      router.push('/login'); // Redirect to the dashboard after successful registration
     } else {
       const errorData = await res.json(); // Parse the JSON response
       if (res.status === 409) {
@@ -40,8 +39,12 @@ const RegistrationPage = () => {
     }
   };
   
+  const handleLoginRedirect = () => {
+    router.push('/login');
+  };
+  
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="container">
       <SnackbarProvider />
       <Box className="box">
         <Typography component="h1" variant="h5" className="title">
@@ -89,6 +92,14 @@ const RegistrationPage = () => {
             Register
           </Button>
         </form>
+        <Box mt={2}>
+          <Typography variant="body2" className="already-Have-account-typography">
+            Already have an account?{' '}
+            <Link component="button" variant="body2" className="link-to-login" onClick={handleLoginRedirect}>
+              Login!
+            </Link>
+          </Typography>
+        </Box>
       </Box>
     </Container>
   );
