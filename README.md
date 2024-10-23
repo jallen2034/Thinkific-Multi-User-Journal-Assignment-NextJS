@@ -1,5 +1,8 @@
 # Thinkific Multi-User Journal Assignment
 
+### Video Demo of application:
+https://github.com/user-attachments/assets/1122551b-7eaa-45ef-97bd-57f432ee192a
+
 ### 1. Get to know project tech stack
 
 This simple project is a starting point for your take-home test. It is built with the following technologies:
