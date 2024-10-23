@@ -10,3 +10,8 @@ export type UpdateJournalFormStateCB = (newState: Partial<JournalFormState>) => 
 
 // Type for the submit handler function
 export type HandleSubmitCB = (event: FormEvent<HTMLFormElement>) => Promise<void>;
+
+export type UserSelectOption = {
+  value: string; // This will be the user ID.
+  label: string; // This will be the display name of the user.
+};
