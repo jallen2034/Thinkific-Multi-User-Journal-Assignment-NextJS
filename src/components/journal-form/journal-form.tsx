@@ -1,16 +1,22 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { Box, Button, TextField } from "@mui/material";
+import { HandleSubmitCB, JournalFormState, UpdateJournalFormStateCB } from "@/components/journal-container/types";
 
-const JournalForm = () => {
-  const [entry, setEntry] = useState("");
+interface JournalFormProps {
+  journalFormState: JournalFormState;
+  updateJournalFormState: UpdateJournalFormStateCB;
+  handleSubmit: HandleSubmitCB;
+}
+
+const JournalForm = ({
+  journalFormState, updateJournalFormState, handleSubmit
+}: JournalFormProps) => {
+  // Destructure what I want from journalFormState.
+  const { postText }: JournalFormState = journalFormState;
   
+  // Handle when the user changes the text field.
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setEntry(e.target.value);
-  };
-  
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Logic to submit the journal entry will go here later
+    updateJournalFormState({ postText: e.target.value });
   };
   
   return (
@@ -19,7 +25,7 @@ const JournalForm = () => {
         fullWidth
         multiline
         rows={4}
-        value={entry}
+        value={postText} // Use the state from props
         onChange={handleChange}
         placeholder="Write your journal entry here..."
         required

@@ -20,9 +20,10 @@ model User {
 }
 
 model Post {
-  authorId Int?
-  content  String?
-  id       Int     @id @default(autoincrement())
-  title    String
-  author   User?   @relation(fields: [authorId], references: [id])
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String
+  datePosted DateTime? // This is the new column you want to add
+  userId     Int // This column relates to the User model
+  user       User      @relation(fields: [userId], references: [id])
 }
