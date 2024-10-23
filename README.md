@@ -58,7 +58,11 @@ October 23, 2024.
 
 ### Location of deployed application (not necessary for Junior Engineers)
 
-Please provide the url where we can find and interact with your running application.
+I’ve hosted the app along with the database using ngrok, which allows the team to interact with it on the web. You can access the app here:
+
+https://1d61-2604-3d08-d07f-35f0-ed0a-bd84-462-b94d.ngrok-free.app
+
+I opted for ngrok as it was the fastest way to get the app deployed for demonstration purposes, given the time constraints. If I had more time, I would have properly deployed the app and database on a platform like Vercel.
 
 ### Instructions to run assignment locally
 
