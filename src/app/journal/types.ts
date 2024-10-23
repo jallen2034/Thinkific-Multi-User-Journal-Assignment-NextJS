@@ -8,6 +8,7 @@ export interface Post {
   id: number;
   title: string;
   content: string | null;
-  authorId: number | null;
-  author: Author | null;
+  authorId?: number | null;
+  user?: Author | null;
+  datePosted: Date | null; // Change this to Date | null
 }
