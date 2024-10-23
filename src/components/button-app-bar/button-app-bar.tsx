@@ -98,7 +98,7 @@ export default function ButtonAppBar() {
                 isLoggedIn,
                 pathname,
                 handleNavigation,
-                handleSignOut
+                handleSignOut,
               }}
             />
           )}

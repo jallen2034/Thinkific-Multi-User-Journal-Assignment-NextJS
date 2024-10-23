@@ -51,6 +51,13 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
       getUserSelectOptionsFromPosts(initialPosts);
     setUserDropDownOptions(userDropDownOptions || []);
   }, [initialPosts]);
+  
+  // Effect to populate the dropdown menu when the posts are updated from the API.
+  useEffect(() => {
+    const userDropDownOptions: UserSelectOption[] =
+      getUserSelectOptionsFromPosts(posts);
+    setUserDropDownOptions(userDropDownOptions || []);
+  }, [posts]);
 
   const handleSubmit: HandleSubmitCB = async (e: React.FormEvent) => {
     e.preventDefault();
