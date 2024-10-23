@@ -13,6 +13,13 @@ interface PostListProps {
 const PostList = ({
   posts
 }: PostListProps) => {
+  // Check if posts array exists and has any items
+  if (!posts || posts.length === 0) {
+    return (
+      <Typography>No posts available</Typography>
+    );
+  }
+  
   return (
     <Box className="post-list-container">
       <List className="post-list">

@@ -2,15 +2,15 @@ const { PrismaClient } = require("@prisma/client");
 
 const userData = [
   {
-    name: "Anonymous", // Optional: you can provide a name if you want
-    email: "anonymous@example.com", // Ensure this is unique
-    id: 0, // Explicitly set the user ID to 0 for the anonymous user
+    name: "Anonymous",
+    email: "anonymous@example.com",
+    passwordHash: null, // Anonymous user does not need a password
     posts: {
       create: [
         {
           title: "Anonymous Post",
           content: "This is a post from an anonymous user :).",
-          datePosted: new Date(), // Add the current date
+          datePosted: new Date(),
         },
       ],
     },
@@ -18,12 +18,13 @@ const userData = [
   {
     name: "Jane",
     email: "jane@example.com",
+    passwordHash: "$2a$12$RNtbB1W.XZLs98HPMdSi/uhNUlX3lRCgn1bpKXbUV2ineWX.8fjzq", // Pre-hashed password for Jane
     posts: {
       create: [
         {
           title: "First Post",
           content: "Hello, World!",
-          datePosted: new Date(), // Add the current date
+          datePosted: new Date(),
         },
       ],
     },
@@ -31,12 +32,13 @@ const userData = [
   {
     name: "Joe",
     email: "joe@example.com",
+    passwordHash: "$2a$12$u1MKPqAHorc5eOrFMAdUVOsVMsSM//FQvGWdl888hX9Pj4wZtHAw6", // Pre-hashed password for Joe
     posts: {
       create: [
         {
           title: "Second Post",
           content: "Hello, Journal!",
-          datePosted: new Date(), // Add the current date
+          datePosted: new Date(),
         },
       ],
     },
@@ -47,39 +49,25 @@ async function seed() {
   const prisma = new PrismaClient();
   
   try {
+    // First, delete existing data
+    await prisma.post.deleteMany({});
+    await prisma.user.deleteMany({});
+    
     for (const user of userData) {
-      // Check if the user already exists (skip the anonymous user check)
-      if (user.id === 0) {
-        const existingAnonUser = await prisma.user.findUnique({
-          where: { id: 0 },
-        });
-        
-        if (!existingAnonUser) {
-          await prisma.user.create({
-            data: {
-              email: user.email,
-              name: user.name,
-              id: user.id, // Explicitly set the user ID
-              posts: user.posts,
-            },
-          });
-          console.log("Anonymous user created.");
-        } else {
-          console.log("Anonymous user already exists.");
-        }
-      } else {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-        
-        if (!existingUser) {
-          await prisma.user.create({
-            data: user,
-          });
-        } else {
-          console.log(`User with email ${user.email} already exists.`);
-        }
-      }
+      // Create user without the id field
+      const userDataToCreate = {
+        email: user.email,
+        name: user.name,
+        passwordHash: user.passwordHash || null, // Use the pre-hashed password or null
+        posts: user.posts,
+      };
+      
+      // Create user
+      await prisma.user.create({
+        data: userDataToCreate,
+      });
+      
+      console.log(`User ${user.name || "Anonymous"} created.`);
     }
     
     console.log("Seed data has been inserted successfully.");
