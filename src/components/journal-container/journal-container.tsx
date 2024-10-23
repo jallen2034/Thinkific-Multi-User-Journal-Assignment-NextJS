@@ -66,6 +66,8 @@ const JournalContainer: React.FC<JournalContainerProps> = ({ initialPosts }: Jou
     }));
   };
   
+  console.log(posts)
+  
   return (
     <Box className="journal-container" sx={{ p: 3 }}>
       <SnackbarProvider />
