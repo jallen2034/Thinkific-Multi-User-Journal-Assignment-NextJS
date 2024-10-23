@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Post } from "@/app/journal/types";
 import Select from "react-select";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import JournalForm from "@/components/journal-form/journal-form";
 import {
   HandleSubmitCB,
@@ -32,9 +32,7 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
 
   // https://react-select.com/home
-  const [selectedOption, setSelectedOption] = useState<UserSelectOption | null>(
-    null,
-  );
+  const [selectedOption, setSelectedOption] = useState<UserSelectOption | null>(null,);
   const [userDropDownOptions, setUserDropDownOptions] = useState<
     UserSelectOption[]
   >([]);
@@ -51,16 +49,7 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
       getUserSelectOptionsFromPosts(initialPosts);
     setUserDropDownOptions(userDropDownOptions || []);
   }, [initialPosts]);
-
-  // Effect hook to handle updating the UI once the user selects a user to filter the posts by.
-  useEffect(() => {
-    const filteredPosts: Post[] | null = createPostsFilteredByUser(
-      posts,
-      selectedOption,
-    );
-    setFilteredPosts(filteredPosts || []);
-  }, [posts, selectedOption]);
-
+  
   const handleSubmit: HandleSubmitCB = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -94,7 +83,20 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
       ...newState,
     }));
   };
-
+  
+  // Function to clear the dropdown menu filters.
+  const clearDropdownFilters = () => {
+    setFilteredPosts([]); // Reset filtered posts.
+    setSelectedOption(null); // Reset selected option.
+  };
+  
+  // Function to handle changes in the selected option.
+  const handleSelectChange = (option: UserSelectOption | null) => {
+    setSelectedOption(option);
+    const filteredPosts: Post[] | null = createPostsFilteredByUser(posts, option);
+    setFilteredPosts(filteredPosts || []);
+  };
+  
   return (
     <Box className="journal-container" sx={{ p: 3 }}>
       <SnackbarProvider />
@@ -110,16 +112,29 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
         <CircularProgress />
       ) : (
         <div>
-          {userDropDownOptions.length > 0 ? (
-            <Select
-              options={userDropDownOptions}
-              onChange={setSelectedOption}
-              classNamePrefix="my-select"
-              placeholder="Filter posts by a user"
-            />
-          ) : (
-            <p>No users available</p>
-          )}
+          <div className="filter-container">
+            {userDropDownOptions.length > 0 ? (
+              <Select
+                value={selectedOption}
+                options={userDropDownOptions}
+                onChange={handleSelectChange}
+                classNamePrefix="my-select"
+                placeholder="Filter posts by a user"
+              />
+            ) : (
+              <p>No users available</p>
+            )}
+            {filteredPosts.length > 0 && (
+              <Button
+                variant="contained"
+                color="error"
+                onClick={clearDropdownFilters}
+                sx={{ ml: 2 }}
+              >
+                Clear Filters
+              </Button>
+            )}
+          </div>
           <PostList
             {...{
               posts: filteredPosts.length > 0 ? filteredPosts : posts,
