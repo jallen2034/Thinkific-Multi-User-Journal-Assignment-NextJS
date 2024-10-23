@@ -52,7 +52,7 @@ const JournalForm = ({
         variant="outlined"
         label="Journal Entry"
       />
-      <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+      <Button type="submit" variant="contained" color="primary" className="generic-blue" sx={{ mt: 2 }}>
         {isLoggedIn ? "Submit as me" : "Submit as Anonymous"}
       </Button>
     </Box>

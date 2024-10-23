@@ -142,6 +142,7 @@ const JournalContainer: React.FC<JournalContainerProps> = ({
                 color="error"
                 onClick={clearDropdownFilters}
                 sx={{ ml: 2 }}
+                className="generic-red-button"
               >
                 Clear Filters
               </Button>
