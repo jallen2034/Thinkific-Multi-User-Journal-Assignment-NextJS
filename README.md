@@ -234,6 +234,8 @@ Thank you for considering this information, and I look forward to your feedback!
 
 ### Your Feedback on This Technical Challenge
 
+Have feedback for how we could make this assignment better? Please let us know.
+
 Overall, I found the challenge engaging and enjoyable; however, I believe the original time estimate of 1-3 hours is inaccurate for intermediate-level developers.
 
 For participants like myself who faced project configuration issues with the original repository, or for those who may be less experienced or unfamiliar with technologies such as Prisma, additional time is often required to familiarize themselves with these tools.
