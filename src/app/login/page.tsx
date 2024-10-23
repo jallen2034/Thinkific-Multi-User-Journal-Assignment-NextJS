@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { TextField, Button, Container, Typography, Box, Link } from '@mui/material';
+import { enqueueSnackbar, SnackbarProvider } from "notistack"; // Import enqueueSnackbar
 import "./login.scss";
 
 const Page = () => {
@@ -21,11 +22,21 @@ const Page = () => {
     
     if (res.ok) {
       const data = await res.json();
-      
-      // Store the JWT in sessionStorage instead.
       sessionStorage.setItem('token', data.token);
+      enqueueSnackbar("Login successful! The page will refresh in 5 seconds. Please navigate back to home.", {
+        variant: "success",
+      });
+      /* TODO: Implement a more robust state management solution for handling the user's logged-in status
+       * instead of relying on sessionStorage and a forced page refresh. Consider using a state management library
+       * (e.g., Redux) to ensure a seamless user experience across the app. */
+      setTimeout(() => {
+        window.location.reload(); // Force page refresh after 5 seconds
+      }, 5000); // Delay for 5 seconds
     } else {
-      console.error('Login failed');
+      const errorData = await res.json(); // Parse the JSON response for error messages
+      enqueueSnackbar(errorData.error || 'Username or password is incorrect. Please try again.', {
+        variant: "error",
+      });
     }
   };
   
@@ -35,6 +46,7 @@ const Page = () => {
   
   return (
     <Container component="main" maxWidth="xs" className="login-container">
+      <SnackbarProvider />
       <Box className="box">
         <Typography component="h1" variant="h5" className="title">
           Sign In

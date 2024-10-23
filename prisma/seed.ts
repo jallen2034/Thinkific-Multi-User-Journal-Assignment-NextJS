@@ -10,7 +10,7 @@ const userData = [
     posts: {
       create: [
         {
-          title: "First Post",
+          title: "User Post",
           content: "Hello, World!",
           datePosted: new Date(),
         },
@@ -25,7 +25,7 @@ const userData = [
     posts: {
       create: [
         {
-          title: "Second Post",
+          title: "User Post",
           content: "Hello, Journal!",
           datePosted: new Date(),
         },
