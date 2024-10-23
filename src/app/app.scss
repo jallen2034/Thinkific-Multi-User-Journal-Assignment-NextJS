@@ -1,3 +1,5 @@
+@use 'base' as *;
+
 .main {
   display: flex;
   flex-direction: column;
@@ -29,11 +31,7 @@
       margin-top: 20px;
 
       .journalButton {
-        background-color: #007bff;
-        color: white;
-        &:hover {
-          background-color: #0056b3;
-        }
+        @include generic-blue-button;
       }
     }
   }
