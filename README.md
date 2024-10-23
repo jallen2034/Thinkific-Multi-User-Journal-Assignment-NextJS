@@ -12,14 +12,6 @@ This simple project is a starting point for your take-home test. It is built wit
     - Scaffolding is set up for SQLite
     - You are free to use other databases of your choice
 
-### 5. Start the app
-
-```
-yarn dev
-```
-
-The app is now running, navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to explore its UI.
-
 ## Submission
 
 Update this README file by answering the questions below.
@@ -82,6 +74,7 @@ Once everything above is configured, you can start the development server:
 ```bash
 npm run dev
 ```
+The app should now be running, navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to explore its UI.
 
 ### Running the Automated Unit Test Suite with Jest:
 To run the unit tests using Jest, use the following command in your terminal:
