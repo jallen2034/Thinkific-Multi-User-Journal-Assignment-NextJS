@@ -12,32 +12,6 @@ This simple project is a starting point for your take-home test. It is built wit
     - Scaffolding is set up for SQLite
     - You are free to use other databases of your choice
 
-### 2. Install npm dependencies
-
-```
-yarn
-```
-
-### 3. Create .env file
-
-```
-cp .env.example .env
-```
-
-### 4. Prepare DB
-
-Create a local SQLite database and run migrations.
-
-```
-npx prisma migrate dev --name init
-```
-
-Seed the database with the sample data from [`prisma/seed.js`](./prisma/seed.js).
-
-```
-npx prisma db seed
-```
-
 ### 5. Start the app
 
 ```
@@ -66,17 +40,17 @@ Please provide us with the necessary instructions to run your solution if it is 
 
 #### Installation:
 
-1. Clone the repository to your local machine:
+#### 1. Clone the repository to your local machine:
 ```bash
  git clone https://github.com/your-repo-name/project.git
  cd project
 ```
 
-2. Install the dependencies:
+#### 2. Install the dependencies:
 ```bash
 npm install
 ```
-3. Ensure your .env file is correctly configured:
+#### 3. Ensure your .env file is correctly configured:
 
 Create a `.env` file at the root of the project and include the following configuration to enable Prisma to connect with the database:
 ```env
@@ -88,8 +62,22 @@ Create a `.env` file at the root of the project and include the following config
 DATABASE_URL="file:./dev.db"
 ```
 
+### 4. Prepare DB
+
+Create a local SQLite database and run migrations.
+
+```
+npx prisma migrate dev --name init
+```
+
+Seed the database with the sample data from the seed.ts file located in the prisma directory.
+
+```
+npx prisma db seed
+```
+
 ### Running the Development Server:
-Once your API key is configured, you can start the development server:
+Once everything above is configured, you can start the development server:
 
 ```bash
 npm run dev
