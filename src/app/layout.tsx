@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
 import ButtonAppBar from "@/components/button-app-bar/button-app-bar";
 import "./globals.css";
 
@@ -13,13 +12,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-      <body className={inter.className}>
-      <ButtonAppBar />
-      {children}
-      </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+    <body className={inter.className}>
+    <ButtonAppBar />
+    {children}
+    </body>
+    </html>
   );
 }

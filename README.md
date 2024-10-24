@@ -37,6 +37,27 @@ Please provide us with the necessary instructions to run your solution if it is 
 
 #### Installation:
 
+### Running the App inside of Docker:
+
+Prerequisites: Ensure oyu have docker and docker desktop installed ony our machine. This as tested on my machine running Windows 11 with WSL2.
+
+If you like you can run the application our of the docker container and all the configuration is handled for you in the Dockerfile I made. 
+I dockerized this app to make it easier to deploy to the cloud along with the database.
+
+Build the app in the container:
+
+```bash
+sudo docker build -t nextjs-prisma-app .
+```
+
+Run the app in the container with Docker 
+
+```bash
+docker run -p 3000:3000 nextjs-prisma-app
+
+```
+
+
 #### 1. Clone the repository to your local machine:
 ```bash
  git clone https://github.com/your-repo-name/project.git
