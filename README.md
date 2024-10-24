@@ -27,7 +27,7 @@ October 23, 2024.
 
 I have hosted the application along with its database on Amazon EC2, allowing the team to interact with it seamlessly over the web. You can access the app at the following URL:
 
-[https://1d61-2604-3d08-d07f-35f0-ed0a-bd84-462-b94d.ngrok-free.app](http://3.140.201.164/)
+[Click here to demo the deployed app in AWS](http://3.140.201.164/)
 
 To streamline the deployment process, I utilized Docker to containerize the application and its database. This approach simplifies management and scalability.
 
